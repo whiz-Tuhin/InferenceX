@@ -48,6 +48,11 @@ base:
         TRTLLM_SERVE_ENABLE_MSGSPEC: '1'
         TRTLLM_TORCH_COMPILE_CONTEXT_ONLY: '1'
         DYN_PUBLISH_KV_EVENTS: '0'
+        # Parse MiniMax-M3 <mm:think> blocks and tool calls on the Dynamo frontend (parity with trtllm-serve's
+        # engine-side reasoning_parser); the model's leading </mm:think> sentinel no longer reaches clients as content
+        # and tool calls come back in tool_calls instead of as text, which the MiniMax vendor eval requires.
+        DYN_REASONING_PARSER: minimax_m3
+        DYN_TOOL_CALL_PARSER: minimax_m3
       args:
         max_seq_len: 1048576
         max_num_tokens: 16384
@@ -92,6 +97,9 @@ base:
         enable_autotuner: true
         trust_remote_code: true
         stream_interval: 20
+        # Engine-side parser too, so the TRT-LLM engine config matches the trtllm-serve recipes; inert on the
+        # Dynamo path (verified at c20, no perf change).
+        reasoning_parser: minimax_m3
         print_iter_log: true
         num_postprocess_workers: 8
         enable_attention_dp: false

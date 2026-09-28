@@ -9003,3 +9003,16 @@
   description:
     - "Update B300 vLLM AgentX to DSpark6 on a new image with a sampled concurrency grid and per-mode --kv-cache-memory-bytes pins."
   pr-link: https://github.com/SemiAnalysisAI/InferenceX/pull/3477
+
+- config-keys:
+    - minimaxm3-fp4-gb200-dynamo-trt-agentic-agg-mtp
+  scenario-type:
+    - agentic-coding
+  description:
+    - "Enable the MiniMax-M3 reasoning parser on the Dynamo frontend so reasoning blocks are classified consistently instead of being returned as ordinary content."
+    - "Enable the MiniMax-M3 tool-call parser on the Dynamo frontend so tool calls are returned in tool_calls rather than as text; required by the MiniMax vendor eval."
+    - "Set reasoning_parser: minimax_m3 in the TensorRT-LLM engine configuration to keep the frontend and engine parser settings aligned."
+    - "在 Dynamo 前端启用 MiniMax-M3 推理解析器，使推理内容按一致方式分类，而不会作为普通内容返回。"
+    - "在 Dynamo 前端启用 MiniMax-M3 工具调用解析器，使工具调用以 tool_calls 返回而非文本；MiniMax 厂商评测需要此设置。"
+    - "在 TensorRT-LLM 引擎配置中设置 reasoning_parser: minimax_m3，使前端与引擎的解析器设置保持一致。"
+  pr-link: https://github.com/SemiAnalysisAI/InferenceX/pull/3195
